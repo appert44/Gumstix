@@ -41,7 +41,8 @@ WARNING_ON = -Wall
 CFLAGS = $(DEBUG_ON) $(WARNING_ON)
 
 # Options de recherches des includes
-INCLUDES =	-I /usr/local/include
+INCLUDES =	-I /usr/local/include 
+			
 
 # Définitions à la compilation (ex -DDEBUG = #define DEBUG)
 DEFINES = 
@@ -61,16 +62,16 @@ SRC = $(wildcard $(SRCDIR)/*.m)
 HDR = $(wildcard $(SRCDIR)/*.h)
 
 # On place ici les objets (.o) a linker dans les applications finales
-AUX_OBJECTS	= 	$(OBJDIR)/
+AUX_OBJECTS	= 	$(OBJDIR)/ClientHTTP.o
 
-UNITTEST_OBJECTS	= $(OBJDIR)/
+UNITTEST_OBJECTS	= $(OBJDIR)/ClientHTTPTesteur.o
 
 RELEASE_OBJECTS	=	
 
 OBJECTS		= 	$(AUX_OBJECTS) $(UNITTEST_OBJECTS) $(RELEASE_OBJECTS)
 
 # On place ici les exécutables à générer (testsunitaires et release)
-UNITTEST	= $(UNITTESTBIN)/
+UNITTEST	= $(UNITTESTBIN)/ClientHTTPTesteur
 
 RELEASE	=	
 
@@ -102,7 +103,7 @@ $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp
 	$(CC) -c $< -o $@
 
 # Production des tests unitaires
-$(UNITTESTBIN)/ :	$(AUX_OBJECTS) $(OBJDIR)/
+$(UNITTESTBIN)/ClientHTTPTesteur :	$(AUX_OBJECTS) $(OBJDIR)/ClientHTTPTesteur.o
 	$(CC) $^  $(LIBSTEST) -o $@
 
 # Production de la release
