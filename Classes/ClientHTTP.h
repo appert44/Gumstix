@@ -73,7 +73,7 @@ public :
 
     // Methodes publiques de la classe
     // ex : ReturnType NomMethode(Type);
-void Connexion();
+void Connection();
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :

@@ -59,7 +59,7 @@ ClientHTTP::~ClientHTTP()
 // ReturnType ClientHTTP::NomMethode(Type parametre)
 // {
 // }
-void ClientHTTP::Connexion()
+void ClientHTTP::Connection()
 {
 
 }

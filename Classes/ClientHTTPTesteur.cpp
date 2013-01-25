@@ -62,7 +62,7 @@ void ClientHTTPTesteur::testUnitaire1()
 {
     // Construction de l'instance de classe a tester
     ClientHTTP *clienthttp = new ClientHTTP();
-clienthttp->Connexion();
+clienthttp->Connection();
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
     delete clienthttp;
