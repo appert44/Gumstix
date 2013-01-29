@@ -127,5 +127,5 @@ $(BUILDDIR):
 	mkdir $@/Release/configuration && \
 	mkdir $@/Release/logs
 
-test-HTTPClientTest :
+test-ClientHTTPTesteur :
 	[ -e Makefile ] && (cd $(UNITTESTBIN) && ./ClientHTTPTesteur) || true
