@@ -1,6 +1,6 @@
 ##############################################################################
-# Makefile pour generer : Cavalier
-# Projet : Jeu Echec
+# Makefile pour generer : nom de l'application
+# Projet : nom du projet
 # Date : 
 # Commande : make
 #############################################################################
@@ -25,6 +25,9 @@ RELEASEBIN = $(RELEASEDIR)/bin
 # Dossier de la documentation
 DOCDIR = $(BUILDDIR)/html
 
+# Dossier d'installation
+INSTALLDIR = ~/bin
+
 # Options de compilation à ajouter à CFLAGS si nécessaire
 SVNDEF = -D_SVN_=\"$(shell svnversion -n .)\"
 
@@ -38,48 +41,57 @@ MINDEF = -D_MIN_=\"$(shell date +%M)\"
 DEBUG_ON = -g
 WARNING_ON = -Wall
 
-CFLAGS = $(DEBUG_ON) $(WARNING_ON)
+#CFLAGS = $(DEBUG_ON) $(WARNING_ON) --sysroot=/home/plegal/svn/gumstix/yocto/build/tmp/sysroots/overo
+CFLAG=${CFLAGS} $(DEBUG_ON) $(WARNING_ON)
+CXXFLAG=${CXXFLAGS} $(DEBUG_ON) $(WARNING_ON)
 
 # Options de recherches des includes
-INCLUDES =	-I /usr/local/include\
-			
-			
+INCLUDES = -I $(HOME)/overo/usr/include
 
 # Définitions à la compilation (ex -DDEBUG = #define DEBUG)
 DEFINES = 
 
 # Options de linkage si necessaire (ex -lm)
-LIBSTEST =  -lcppunit -ldl
-LIBS = 
+LIBSTEST = -lboost_thread  $(HOME)/overo/usr/lib/libcppunit.so $(HOME)/overo/usr/lib/libdl.so
+LIBS = -lboost_thread
 
 # Commande de compilation C++
-CC = g++ $(CFLAGS) $(INCLUDES) $(DEFINES)
-
+#CC = arm-poky-linux-gnueabi-g++ $(CFLAGS) $(INCLUDES) $(DEFINES)
+CC=${CXX} $(CXXFLAG) $(INCLUDES) $(DEFINES)
 # Commande de compilation C
-C = gcc $(CFLAGS) $(INCLUDES) $(DEFINES)
+C = gcc $(CFLAG) $(INCLUDES) $(DEFINES)
 
 # Liste fichiers source
 SRC = $(wildcard $(SRCDIR)/*.m)
 HDR = $(wildcard $(SRCDIR)/*.h)
 
 # On place ici les objets (.o) a linker dans les applications finales
-AUX_OBJECTS	= 		$(OBJDIR)/ClientHTTP.o\
-# $(OBJDIR)/CIODevice.o 
-					# $(OBJDIR)/CEvent.o 
-				#	$(OBJDIR)/CTcpIpClient.o 
+
+# Classes auxiliaires
+# ex                    = $(OBJDIR)/MyAuxClass.o
+AUX_OBJECTS		=	$(OBJDIR)/ClientHTTP.o \
+					$(OBJDIR)/CIODevice.o \
+					$(OBJDIR)/CEvent.o \
+					$(OBJDIR)/CTcpIpClient.o \
 					
-			
 
-UNITTEST_OBJECTS	= $(OBJDIR)/ClientHTTPTesteur.o
+# Classes de tests unitaires
+# ex                    = $(OBJDIR)/MyAuxClassTest.o 
+UNITTEST_OBJECTS	=	$(OBJDIR)/ClientHTTPTesteur.o
 
-RELEASE_OBJECTS	=	
+# Classe principale de release
+# ex                    = $(OBJDIR)/MyMainClass.o
+RELEASE_OBJECTS		= 
 
+# Objet à générer
 OBJECTS		= 	$(AUX_OBJECTS) $(UNITTEST_OBJECTS) $(RELEASE_OBJECTS)
 
 # On place ici les exécutables à générer (testsunitaires et release)
-UNITTEST	= $(UNITTESTBIN)/ClientHTTPTesteur
+# ex            = 	$(UNITTESTBIN)/MyAuxClassTest
+UNITTEST	=	$(UNITTESTBIN)/ClientHTTPTesteur
 
-RELEASE	=	
+# ex            = 	$(RELEASEBIN)/MyMainClass
+RELEASE		=	
 
 # On rajoute ici ce qui doit être généré
 all : $(BUILDDIR) $(OBJECTS) $(RELEASE) $(UNITTEST)
@@ -100,6 +112,14 @@ analyze :
 doc:
 	doxygen ./Doxyfile
 
+# Install
+install : $(INSTALLDIR)
+	cp $(RELEASEBIN)/* $(INSTALLDIR)/.
+
+# Install test
+installtest : $(INSTALLDIR)
+	cp $(UNITTESTBIN)/* $(INSTALLDIR)/.
+
 # Production des .o (c++)
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(CC) -c $< -o $@
@@ -113,8 +133,11 @@ $(UNITTESTBIN)/ClientHTTPTesteur :	$(AUX_OBJECTS) $(OBJDIR)/ClientHTTPTesteur.o
 	$(CC) $^  $(LIBSTEST) -o $@
 
 # Production de la release
-$(RELEASEBIN)/: $(AUX_OBJECTS) $(OBJDIR)/
-	$(CC) $^ $(LIBS) -o $@
+#$(RELEASEBIN)/ClientHTTP : $(AUX_OBJECTS) $(OBJDIR)/ClientHTTP.o
+	#$(CC) $^ $(LIBS) -o $@
+
+$(INSTALLDIR) :
+	mkdir -p $@
 
 # Création de l'arborescence pour le build
 $(BUILDDIR):
@@ -123,6 +146,8 @@ $(BUILDDIR):
 	mkdir $@/html && \
 	mkdir $@/UnitTest && \
 	mkdir $@/UnitTest/bin && \
+	mkdir $@/UnitTest/configuration && \
+	mkdir $@/UnitTest/logs && \
 	mkdir $@/Release && \
 	mkdir $@/Release/bin && \
 	mkdir $@/Release/configuration && \
@@ -130,3 +155,5 @@ $(BUILDDIR):
 
 test-ClientHTTPTesteur :
 	[ -e Makefile ] && (cd $(UNITTESTBIN) && ./ClientHTTPTesteur) || true
+
+	
