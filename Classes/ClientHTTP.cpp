@@ -24,8 +24,8 @@
 
 // Includes system C++
 // A décommenter si besoin cout, cin, ...
-// #include <iostream>
-// using namespace std;
+#include <iostream>
+using namespace std;
 #include <stdio.h>
 
 // Includes qt
@@ -58,9 +58,9 @@ ClientHTTP::~ClientHTTP()
 // ReturnType ClientHTTP::NomMethode(Type parametre)
 // {
 // }
-int ClientHTTP::Connection()
+void ClientHTTP::Connection()
 {
-
+cout << "hello world " << endl ;
 }
 // Methodes protegees
 
