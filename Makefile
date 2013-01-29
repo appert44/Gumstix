@@ -63,10 +63,11 @@ SRC = $(wildcard $(SRCDIR)/*.m)
 HDR = $(wildcard $(SRCDIR)/*.h)
 
 # On place ici les objets (.o) a linker dans les applications finales
-AUX_OBJECTS	= 		$(OBJDIR)/CIODevice.o \
-					$(OBJDIR)/CEvent.o \
-					$(OBJDIR)/CTcpIpClient.o \
-					$(OBJDIR)/ClientHTTP.o\
+AUX_OBJECTS	= 		$(OBJDIR)/ClientHTTP.o\
+# $(OBJDIR)/CIODevice.o 
+					# $(OBJDIR)/CEvent.o 
+				#	$(OBJDIR)/CTcpIpClient.o 
+					
 			
 
 UNITTEST_OBJECTS	= $(OBJDIR)/ClientHTTPTesteur.o
