@@ -32,12 +32,38 @@ using namespace std;
 
 // Includes application
 #include "ClientHTTP.h"
+#include "PEGASE_2.h"
+
+void OnReceiveCallBack(char* sBuffer, int iBufferSize, CEvent * pEvent,
+		void * pData1, void * pData2) {
+	unused(pEvent);
+	unused(pData1);
+	unused(pData2);
+
+	cout << "My callback called: " << sBuffer << ", size : " << iBufferSize
+			<< endl;
+}
+
+
+void OnDeconnectionCallBack(char* pcServerIp, int iServerPort, CEvent* pEvent,
+		void* pData1, void* pData2) {
+	unused(pEvent);
+	unused(pData1);
+	unused(pData2);
+
+	cout << "You have been disconnected of the server : Ip server : "
+			<< pcServerIp << ", Server port : " << iServerPort << endl;
+}
+
 
 /**
  * Constructeur
  */
 ClientHTTP::ClientHTTP()
 {
+	tcpIpClient_ = new CTcpIpClient(true, INFINITE);
+	oOnCallBackRx_ = &OnReceiveCallBack;
+		oOnCallBackDc_ = &OnDeconnectionCallBack;
 }
 
 /**
@@ -45,6 +71,7 @@ ClientHTTP::ClientHTTP()
  */
 ClientHTTP::~ClientHTTP()
 {
+	delete tcpIpClient_ ;
 }
 
 // Methodes publiques
@@ -58,9 +85,68 @@ ClientHTTP::~ClientHTTP()
 // ReturnType ClientHTTP::NomMethode(Type parametre)
 // {
 // }
-void ClientHTTP::Connection()
+int ClientHTTP::Connect(string httpServer, int port)
 {
-cout << "hello world " << endl ;
+int ret = tcpIpClient_->Connect((char*)httpServer.c_str(), port);
+if (ret < 0) {
+
+		cout << "HTTPClient > Connexion failed check your Server." << endl;
+		return -1;
+
+	}
+
+	sleep(1);
+    ret = tcpIpClient_->RegisterCallBack(EVENT_CTCPIPCLIENT_RECEIVEDATA ,oOnCallBackRx_, tcpIpClient_, NULL);				//Register Rx CallBack
+    if(ret < 0)
+    {
+
+		cout<<"CTcpIpClient > Register failed"<<endl;
+		return -1;
+
+    }
+return 0;
+}
+
+
+int ClientHTTP::POST(string hostname, string url, string data)
+{
+	int ret = -1;
+
+	while	(!tcpIpClient_->IsConnected())
+	{
+		cout << "wait for connection..." << endl;
+		sleep(1);
+	}
+	if (tcpIpClient_->IsConnected())
+	{
+		cout << "post request..." << endl;
+		string request = "POST " + url + " HTTP/1.1\r\n";
+		request+="Host: " + hostname + "\r\n";
+		ostringstream oss;
+		oss << data.length();
+		request+="Content-Length:" + oss.str() + "\r\n\r\n";
+		request+=data + "\r\n";
+		tcpIpClient_->Write((char*)request.c_str(),request.length());
+		ret = 0;
+	}
+	return ret;
+}
+
+
+
+
+
+
+int ClientHTTP::Disconnect()
+{
+	int ret = -1;
+
+		if (tcpIpClient_->IsConnected())
+		{
+			cout << "Disconnect..." << endl;
+			ret = tcpIpClient_->Close();
+		}
+		return ret;
 }
 // Methodes protegees
 

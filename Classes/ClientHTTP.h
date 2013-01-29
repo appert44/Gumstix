@@ -23,14 +23,15 @@
 #define _CLIENTHTTP_H
 
 // Includes system C
-//#include <stdint.h>  // definition des types int8_t, int16_t ...
+#include <stdint.h>  // definition des types int8_t, int16_t ...
 
 // Includes system C++
-
+#include <iostream>
+using namespace std;
 // Includes qt
 
 // Includes application
-//#include "CTcpIpClient.h"
+#include "CTcpIpClient.h"
 // Constantes
 // ex :
 // const int kDaysInAWeek = 7;
@@ -73,7 +74,9 @@ public :
 
     // Methodes publiques de la classe
     // ex : ReturnType NomMethode(Type);
-void Connection();
+int Connect(string httpServer, int port);
+int Disconnect();
+int POST(string hostname, string url, string data);
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :
@@ -89,7 +92,10 @@ private :
     // Attributs prives
     // ex :
     // Type nom_attribut_;
-//CTcpIpClient* tcpIpClient_;
+
+CTcpIpClient* tcpIpClient_;
+	boost::function<CallBack> oOnCallBackRx_;
+	boost::function<CallBack> oOnCallBackDc_;
     // Methodes privees
 };
 
