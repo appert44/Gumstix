@@ -27,7 +27,6 @@
 // #include <iostream>
 // using namespace std;
 #include <stdio.h>
-//#include <CTcpIpClient.h>
 
 // Includes qt
 
@@ -59,7 +58,7 @@ ClientHTTP::~ClientHTTP()
 // ReturnType ClientHTTP::NomMethode(Type parametre)
 // {
 // }
-void ClientHTTP::Connection()
+int ClientHTTP::Connection()
 {
 
 }

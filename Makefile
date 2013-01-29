@@ -41,7 +41,8 @@ WARNING_ON = -Wall
 CFLAGS = $(DEBUG_ON) $(WARNING_ON)
 
 # Options de recherches des includes
-INCLUDES =	-I /usr/local/include 
+INCLUDES =	-I /usr/local/include\
+			
 			
 
 # Définitions à la compilation (ex -DDEBUG = #define DEBUG)
@@ -62,7 +63,11 @@ SRC = $(wildcard $(SRCDIR)/*.m)
 HDR = $(wildcard $(SRCDIR)/*.h)
 
 # On place ici les objets (.o) a linker dans les applications finales
-AUX_OBJECTS	= 	$(OBJDIR)/ClientHTTP.o
+AUX_OBJECTS	= 		$(OBJDIR)/CIODevice.o \
+					$(OBJDIR)/CEvent.o \
+					$(OBJDIR)/CTcpIpClient.o \
+					$(OBJDIR)/ClientHTTP.o\
+			
 
 UNITTEST_OBJECTS	= $(OBJDIR)/ClientHTTPTesteur.o
 
@@ -85,7 +90,7 @@ clean :
 	@rm -f $(OBJDIR)/* $(DOCDIR)/* 
 
 # Cible pour l'enchaînement des tests unitaires (à venir)
-tests:	
+tests: test-ClientHTTPTesteur
 
 # Cible pour l'analyse du code source (à venir)
 analyze :
@@ -121,3 +126,6 @@ $(BUILDDIR):
 	mkdir $@/Release/bin && \
 	mkdir $@/Release/configuration && \
 	mkdir $@/Release/logs
+
+test-HTTPClientTest :
+	[ -e Makefile ] && (cd $(UNITTESTBIN) && ./ClientHTTPTesteur) || true

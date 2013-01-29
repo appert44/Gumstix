@@ -30,7 +30,7 @@
 // Includes qt
 
 // Includes application
-
+#include "CTcpIpClient.h"
 // Constantes
 // ex :
 // const int kDaysInAWeek = 7;
@@ -73,7 +73,7 @@ public :
 
     // Methodes publiques de la classe
     // ex : ReturnType NomMethode(Type);
-void Connection();
+int Connection();
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :
@@ -89,7 +89,7 @@ private :
     // Attributs prives
     // ex :
     // Type nom_attribut_;
-
+CTcpIpClient* tcpIpClient_;
     // Methodes privees
 };
 
