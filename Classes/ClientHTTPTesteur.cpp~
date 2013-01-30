@@ -62,13 +62,13 @@ void ClientHTTPTesteur::testUnitaire1()
 {
     // Construction de l'instance de classe a tester
     ClientHTTP *clienthttp = new ClientHTTP();
-int ret = clienthttp->Connect("172.31.5.236",80);
+int ret = clienthttp->Connect("172.31.5.237",8000);
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
 CPPUNIT_ASSERT(ret >= 0);
     if (ret >= 0) {
 
-    	clienthttp->POST("172.31.5.236","/","param=data");
+    	clienthttp->POST("172.31.5.237","/measure","param=data");
     	sleep(5);
     	clienthttp->Disconnect();
     }
