@@ -76,7 +76,7 @@ public :
     // ex : ReturnType NomMethode(Type);
 int Connect(string httpServer, int port);
 int Disconnect();
-int POST(string hostname, string url, string data);
+int POST(string hostname, string url, string sensor_type, string device_sn, string value);
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :
@@ -92,6 +92,7 @@ private :
     // Attributs prives
     // ex :
     // Type nom_attribut_;
+
 
 CTcpIpClient* tcpIpClient_;
 	boost::function<CallBack> oOnCallBackRx_;

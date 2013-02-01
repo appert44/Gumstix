@@ -64,6 +64,7 @@ ClientHTTP::ClientHTTP()
 	tcpIpClient_ = new CTcpIpClient(true, INFINITE);
 	oOnCallBackRx_ = &OnReceiveCallBack;
 		oOnCallBackDc_ = &OnDeconnectionCallBack;
+
 }
 
 /**
@@ -104,11 +105,12 @@ if (ret < 0) {
 		return -1;
 
     }
+
 return 0;
 }
 
 
-int ClientHTTP::POST(string hostname, string url, string data)
+int ClientHTTP::POST(string hostname, string url, string sensor_type, string device_sn, string value)
 {
 	int ret = -1;
 
@@ -123,11 +125,14 @@ int ClientHTTP::POST(string hostname, string url, string data)
 		string request = "POST " + url + " HTTP/1.1\r\n";
 		request+="Host: " + hostname + "\r\n";
 		ostringstream oss;
-		oss << data.length();
+		oss << sensor_type.length();
+		oss << device_sn.length();
+		oss << value.length();
 		request+="Content-Length:" + oss.str() + "\r\n\r\n";
-		request+=data + "\r\n";
+		request+=sensor_type + device_sn + value + "\r\n";
 		tcpIpClient_->Write((char*)request.c_str(),request.length());
 		ret = 0;
+
 	}
 	return ret;
 }
