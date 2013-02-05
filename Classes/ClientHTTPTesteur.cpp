@@ -17,6 +17,15 @@
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
 
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+
+
 // Includes qt
 
 // Includes application
@@ -62,12 +71,18 @@ void ClientHTTPTesteur::testUnitaire1()
 {
     // Construction de l'instance de classe a tester
     ClientHTTP *clienthttp = new ClientHTTP();
-int ret = clienthttp->Connect("172.31.5.151",8000);
+
+
+
+
+
+
+int ret = clienthttp->Connect("http://enigmatic-cliffs-5746.herokuapp.com/",80);
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
 CPPUNIT_ASSERT(ret >= 0);
     if (ret >= 0) {
-    	clienthttp->POST("172.31.5.151","/measure","sensor_type=temp","device_sn=fds2d","value=21,2");
+    	clienthttp->POST("http://enigmatic-cliffs-5746.herokuapp.com/","/measure","sensor_type=presence","device_sn=toto2","time=02/01/13");
     	sleep(5);
     	clienthttp->Disconnect();
     }

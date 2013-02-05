@@ -76,7 +76,8 @@ public :
     // ex : ReturnType NomMethode(Type);
 int Connect(string httpServer, int port);
 int Disconnect();
-int POST(string hostname, string url, string sensor_type, string device_sn, string value);
+int POST(string hostname, string url, string sensor_type, string device_sn, string time);
+char ResolveName(int argc, char * argv[]);
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :

@@ -27,6 +27,10 @@
 #include <iostream>
 using namespace std;
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <netdb.h>
 
 // Includes qt
 
@@ -110,7 +114,7 @@ return 0;
 }
 
 
-int ClientHTTP::POST(string hostname, string url, string sensor_type, string device_sn, string value)
+int ClientHTTP::POST(string hostname, string url, string sensor_type, string device_sn, string time)
 {
 	int ret = -1;
 
@@ -121,15 +125,16 @@ int ClientHTTP::POST(string hostname, string url, string sensor_type, string dev
 	}
 	if (tcpIpClient_->IsConnected())
 	{
+
 		cout << "post request..." << endl;
 		string request = "POST " + url + " HTTP/1.1\r\n";
 		request+="Host: " + hostname + "\r\n";
 		ostringstream oss;
 		oss << sensor_type.length();
 		oss << device_sn.length();
-		oss << value.length();
+		oss << time.length();
 		request+="Content-Length:" + oss.str() + "\r\n\r\n";
-		request+=sensor_type + device_sn + value + "\r\n";
+		request+=sensor_type +"&"+ device_sn + "&" + time + "\r\n\r\n";
 		tcpIpClient_->Write((char*)request.c_str(),request.length());
 		ret = 0;
 
@@ -152,6 +157,49 @@ int ClientHTTP::Disconnect()
 			ret = tcpIpClient_->Close();
 		}
 		return ret;
+}
+
+char ClientHTTP::ResolveName(int argc, char * argv[])
+{
+
+    struct addrinfo * _addrinfo;
+    struct addrinfo * _res;
+    char _address[INET6_ADDRSTRLEN];
+    int errcode = 0;
+
+    if(argc < 2)
+    {
+        printf("Usage: %s [host]\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+
+    errcode = getaddrinfo(argv[1], NULL, NULL, &_addrinfo);
+    if(errcode != 0)
+    {
+        printf("getaddrinfo: %s \n", gai_strerror(errcode));
+        return EXIT_FAILURE;
+    }
+
+    for(_res = _addrinfo; _res != NULL; _res = _res->ai_next)
+    {
+
+        if(_res->ai_family == AF_INET)
+        {
+
+            if( NULL == inet_ntop( AF_INET,
+                                   &((struct sockaddr_in *)_res->ai_addr)->sin_addr,
+                                   _address,
+                                   sizeof(_address) )
+              )
+            {
+                perror("inet_ntop");
+                return EXIT_FAILURE;
+            }
+
+            printf("%s \n", _address);
+        }
+    }
+
 }
 // Methodes protegees
 
