@@ -1,0 +1,13 @@
+#define LM74_IOCTL_MAGIC 'L'
+
+
+#define LM74_CMD_SET_MODE			0x50
+
+
+
+#define LM74_IOCTL_SET_MODE _IOW(LM74_IOCTL_MAGIC, LM74_CMD_SET_MODE, int)
+
+#define SHUTDOWN_MODE	0xFF
+#define CONTCONV_MODE	0x00
+
+
