@@ -66,7 +66,7 @@ public :
     /**
      * Constructeur
      */
-    Gestionnaire();
+    Gestionnaire(boost::asio::io_service& io_service);
     /**
      * Destructeur
      */
@@ -75,6 +75,7 @@ public :
     // Methodes publiques de la classe
     // ex : ReturnType NomMethode(Type);
 double Acquire();
+void Send();
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :
@@ -93,6 +94,11 @@ private :
 LM74 *lm74_;
 HTTPClient *httpclient_;
 string device_path_;
+//boost::asio::io_service& io_service;
+/*tcp::resolver resolver_;
+	tcp::socket socket_;
+	boost::asio::streambuf request_;
+	boost::asio::streambuf response_;*/
     // Methodes privees
 };
 

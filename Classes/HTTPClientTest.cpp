@@ -68,7 +68,7 @@ void HTTPClientTest::testUnitaire1()
 	boost::asio::io_service io_service;
     HTTPClient *httpclient = new HTTPClient(io_service);
     CPPUNIT_ASSERT(httpclient != NULL);
-    httpclient->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","time=02/07/13&sensor_type=presence&device_sn=65464");
+    httpclient->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=presence&device_sn=toto&value=21&time=04/12/13");
     io_service.run();
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.

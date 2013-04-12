@@ -138,14 +138,14 @@ double LM74::Read()
 	memset (mesure, '\0', 2);
 	 read(fd_, mesure, 2) ;
 
-	 printf("mesure 0x%2x 0x%2x",mesure[0],mesure[1]);
+	// printf("mesure 0x%2x 0x%2x",mesure[0],mesure[1]);
 	temp += mesure[0] << 8 ;
-	printf ("temp 0x%4x \n",temp);
+	//printf ("temp 0x%4x \n",temp);
 	temp += mesure[1] ;
 	temp = temp >> 3 ;
-	printf ("temp 0x%4x \n",temp);
+	//printf ("temp 0x%4x \n",temp);
 	retval = (double)temp * RATIO ;
-	printf ("retval %f",retval);
+	//printf ("retval %f",retval);
 
 return retval;
 

@@ -27,6 +27,7 @@
  #include <iostream>
  using namespace std;
 
+
 // Includes qt
 
 // Includes application
@@ -35,9 +36,11 @@
 /**
  * Constructeur
  */
-Gestionnaire::Gestionnaire()
+Gestionnaire::Gestionnaire(boost::asio::io_service& io_service)
 {
 	lm74_=new LM74("/dev/spike");
+	httpclient_ = new HTTPClient(io_service);
+
 }
 
 /**
@@ -45,7 +48,8 @@ Gestionnaire::Gestionnaire()
  */
 Gestionnaire::~Gestionnaire()
 {
-
+	delete httpclient_;
+	delete lm74_;
 }
 
 // Methodes publiques
@@ -65,6 +69,20 @@ lm74_->Open();
 double temperature=lm74_->Read();
 cout << "temperature=" << temperature << endl ;
 	return temperature;
+	lm74_->Close();
+}
+void Gestionnaire::Send()
+{
+double temperature=this->Acquire();
+std::string str_temp ;
+{
+	std::ostringstream oss;
+	oss << temperature ;
+	str_temp = oss.str();
+}
+
+httpclient_->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=temp&device_sn=0001&time=04/12/13&value="+str_temp);
+	cout << "requete envoyee" << endl;
 }
 // Methodes protegees
 
@@ -76,11 +94,19 @@ cout << "temperature=" << temperature << endl ;
 // ex :
  int main(int argc, char *argv[])
  {
-    // Construction de l'instance de la classe principale
+
+	 boost::asio::io_service io_service;
+    // Construction de l'instance de la  classe principale
     cout << "Construction de l'instance de la classe principale Gestionnaire" << endl;
-    Gestionnaire *gestionnaire = new Gestionnaire();
-    // Lancement de l'activité principale
-gestionnaire->Acquire();
+    Gestionnaire *gestionnaire = new Gestionnaire(io_service);
+    int i=0;
+    	     while (i < 1)
+    	    {
+    gestionnaire->Send();
+    io_service.run();
+    cout << "Prochain envoie de mesure dans 10sec" << endl;
+    sleep(10);
+   }
     return 0;
  }
 

@@ -69,7 +69,7 @@ void HTTPClient::POST(const std::string& server,
 	// server will close the socket after transmitting the response. This will
 	// allow us to treat all data up until the EOF as the content.
 	std::ostream request_stream(&request_);
-	request_stream << "POST " << path << " HTTP/1.0\r\n";
+	request_stream << "POST " << path << " HTTP/1.1\r\n";
 	request_stream << "Host: " << server << "\r\n";
 	request_stream << "Accept: */*\r\n";
 	request_stream << "Connection: close\r\n";
