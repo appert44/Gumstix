@@ -21,11 +21,11 @@
  ***************************************************************************/
 
 // Includes system C
-
 // Includes system C++
 // A décommenter si besoin cout, cin, ...
- #include <iostream>
- using namespace std;
+#include <iostream>
+using namespace std;
+
 
 
 // Includes qt
@@ -36,9 +36,8 @@
 /**
  * Constructeur
  */
-Gestionnaire::Gestionnaire(boost::asio::io_service& io_service)
-{
-	lm74_=new LM74("/dev/spike");
+Gestionnaire::Gestionnaire(boost::asio::io_service& io_service) {
+	lm74_ = new LM74("/dev/spike");
 	httpclient_ = new HTTPClient(io_service);
 
 }
@@ -46,8 +45,7 @@ Gestionnaire::Gestionnaire(boost::asio::io_service& io_service)
 /**
  * Destructeur
  */
-Gestionnaire::~Gestionnaire()
-{
+Gestionnaire::~Gestionnaire() {
 	delete httpclient_;
 	delete lm74_;
 }
@@ -63,28 +61,28 @@ Gestionnaire::~Gestionnaire()
 // ReturnType Gestionnaire::NomMethode(Type parametre)
 // {
 // }
-double Gestionnaire::Acquire()
-{
-lm74_->Open();
-double temperature=lm74_->Read();
-cout << "temperature=" << temperature << endl ;
+double Gestionnaire::Acquire() {
+	lm74_->Open();
+	double temperature = lm74_->Read();
+	cout << "temperature=" << temperature << endl;
 	return temperature;
 	lm74_->Close();
 }
-void Gestionnaire::Send()
-{
-double temperature=this->Acquire();
-std::string str_temp ;
-{
-	std::ostringstream oss;
-	oss << temperature ;
-	str_temp = oss.str();
-}
+void Gestionnaire::Send(string str_temp) {
 
-httpclient_->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=temp&device_sn=0001&time=04/12/13&value="+str_temp);
+	httpclient_->POST("enigmatic-cliffs-5746.herokuapp.com", "80","/alfheimweb/measure/","sensor_type=temp&device_sn=0001&time=04/19/13&value=" + str_temp);
 	cout << "requete envoyee" << endl;
 }
-// Methodes protegees
+string Gestionnaire::DoubleToString(double temperature) {
+	std::string str_temp;
+	{
+		std::ostringstream oss;
+		oss << temperature;
+		str_temp = oss.str();
+	}
+	return str_temp;
+}
+// Methodes protegeesh
 
 // Methodes privees
 
@@ -92,21 +90,18 @@ httpclient_->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measur
 // Si c'est la classe principale du projet, on place une fonction main()
 // Dans ce cas, on peut supprimer les fichiers de tests unitaires
 // ex :
- int main(int argc, char *argv[])
- {
+int main(int argc, char *argv[]) {
 
-	 boost::asio::io_service io_service;
-    // Construction de l'instance de la  classe principale
-    cout << "Construction de l'instance de la classe principale Gestionnaire" << endl;
-    Gestionnaire *gestionnaire = new Gestionnaire(io_service);
-    int i=0;
-    	     while (i < 1)
-    	    {
-    gestionnaire->Send();
-    io_service.run();
-    cout << "Prochain envoie de mesure dans 10sec" << endl;
-    sleep(10);
-   }
-    return 0;
- }
+	boost::asio::io_service io_service;
+	// Construction de l'instance de la  classe principale
+	cout << "Construction de l'instance de la classe principale Gestionnaire"
+			<< endl;
+	Gestionnaire *gestionnaire = new Gestionnaire(io_service);
+	double temperature = gestionnaire->Acquire();
+	string str_temp = gestionnaire->DoubleToString(temperature);
+	gestionnaire->Send(str_temp);
+	io_service.run();
+
+	return 0;
+}
 

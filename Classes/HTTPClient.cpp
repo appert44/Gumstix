@@ -1,5 +1,5 @@
 /**
- *  Copyright (C) 2013  plegal  (plegal@appert44.org)
+ *  Copyright (C) 2013  kmoreau  (kmoreaul@appert44.org)
  *  @file         HTTPClient.cpp
  *  @brief        Client HTTP
  *  @version      0.1
@@ -73,17 +73,17 @@ void HTTPClient::POST(const std::string& server,
 	request_stream << "Host: " << server << "\r\n";
 	request_stream << "Accept: */*\r\n";
 	request_stream << "Connection: close\r\n";
-	ostringstream dataLen;
-	dataLen << data.length();
+	ostringstream dataLen; // creation string to stend
+	dataLen << data.length();  // length of datas
 	request_stream << "Content-Length:" << dataLen.str() << "\r\n\r\n";
 	request_stream << data << "\r\n";
 	// Start an asynchronous resolve to translate the server and service names
 	// into a list of endpoints.
-	tcp::resolver::query query(server, port);
+	tcp::resolver::query query(server, port); // DNS
 	resolver_.async_resolve(query,
 			boost::bind(&HTTPClient::HandleResolve, this,
 					boost::asio::placeholders::error,
-					boost::asio::placeholders::iterator));
+					boost::asio::placeholders::iterator));   // DNS
 
 }
 

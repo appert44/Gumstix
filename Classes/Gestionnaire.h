@@ -75,7 +75,8 @@ public :
     // Methodes publiques de la classe
     // ex : ReturnType NomMethode(Type);
 double Acquire();
-void Send();
+void Send(string str_temp);
+string DoubleToString(double temperature);
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :
