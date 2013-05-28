@@ -1,8 +1,8 @@
 
 /*
  *  Copyright (C) 2013  plegal  (plegal@appert44.org)
- *  @file         HTTPClientTest.cpp
- *  Classe        HTTPClient
+ *  @file         LM74Test.cpp
+ *  Classe        LM74
  *  @note         Implementation de la classe en charge des tests unitaires
  */
 
@@ -17,13 +17,16 @@
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
 
+#include <iostream>
+using namespace std;
+
 // Includes qt
 
 // Includes application
-#include "HTTPClientTest.h"
+#include "LM74Test.h"
 
 // Registers the fixture into the 'registry'
-CPPUNIT_TEST_SUITE_REGISTRATION(HTTPClientTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(LM74Test);
 
 // Exemple d'assertions possibles
 // # CPPUNIT_ASSERT(condition)
@@ -39,42 +42,47 @@ CPPUNIT_TEST_SUITE_REGISTRATION(HTTPClientTest);
 // # CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)
 
 // setUp() to initialize the variables you will use for test
-void HTTPClientTest::setUp()
+void LM74Test::setUp()
 {
 }
 
 // tearDown() to release any permanent resources you allocated in setUp()
-void HTTPClientTest::tearDown()
+void LM74Test::tearDown()
 {
 }
-
-
 
 // Suite des tests unitaires
 
-void HTTPClientTest::testConstructor()
+void LM74Test::testConstructor()
 {
-	boost::asio::io_service io_service;
-    // Construction de l'instance de classe a tester
-    HTTPClient *httpclient = new HTTPClient(io_service);
-    CPPUNIT_ASSERT(httpclient != NULL);
-    io_service.run();
-    delete httpclient;
+//    // Construction de l'instance de classe a tester
+//    LM74 *lm74 = new LM74("/dev/spike");
+//    CPPUNIT_ASSERT(lm74 != NULL);
+//    delete lm74;
 }
 
-void HTTPClientTest::testUnitaire1()
+void LM74Test::testUnitaire1()
 {
     // Construction de l'instance de classe a tester
-	boost::asio::io_service io_service;
-    HTTPClient *httpclient = new HTTPClient(io_service);
-    CPPUNIT_ASSERT(httpclient != NULL);
-
-    httpclient->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=presence&device_sn=toto&value=21&time=04/12/13");
-    io_service.run();
-
+    LM74 *lm74 = new LM74("/dev/spike");
+    CPPUNIT_ASSERT(lm74 != NULL);
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
-    delete httpclient;
+    cout << "open spike" << endl;
+    lm74->Open();
+
+    //lm74->SetShutdownMode();
+    //sleep(1);
+    //cout << "set continous conversion" << endl;
+  // lm74->SetContConvMode();
+
+
+
+    	cout << "Temperature : " << lm74->Read() << endl;
+    	sleep(1);
+
+    lm74->Close();
+    delete lm74;
 }
 
 // the main method
@@ -101,7 +109,7 @@ int main(int argc, char* argv[])
     compileroutputter.write();
 
     // for hudson
-    std::ofstream file( "HTTPClient-cppunit-report.xml" );
+    std::ofstream file( "LM74-cppunit-report.xml" );
     CPPUNIT_NS::XmlOutputter xmloutputter(&collectedresults, file);
     xmloutputter.write();
     file.close();

@@ -1,8 +1,8 @@
 
 /*
- *  Copyright (C) 2013  plegal  (plegal@appert44.org)
- *  @file         HTTPClientTest.cpp
- *  Classe        HTTPClient
+ *  Copyright (C) 2013  kevin  (kevin@appert44.org)
+ *  @file         GestionnaireTest.cpp
+ *  Classe        Gestionnaire
  *  @note         Implementation de la classe en charge des tests unitaires
  */
 
@@ -20,10 +20,10 @@
 // Includes qt
 
 // Includes application
-#include "HTTPClientTest.h"
+#include "GestionnaireTest.h"
 
 // Registers the fixture into the 'registry'
-CPPUNIT_TEST_SUITE_REGISTRATION(HTTPClientTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GestionnaireTest);
 
 // Exemple d'assertions possibles
 // # CPPUNIT_ASSERT(condition)
@@ -39,42 +39,33 @@ CPPUNIT_TEST_SUITE_REGISTRATION(HTTPClientTest);
 // # CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)
 
 // setUp() to initialize the variables you will use for test
-void HTTPClientTest::setUp()
+void GestionnaireTest::setUp()
 {
 }
 
 // tearDown() to release any permanent resources you allocated in setUp()
-void HTTPClientTest::tearDown()
+void GestionnaireTest::tearDown()
 {
 }
-
-
 
 // Suite des tests unitaires
 
-void HTTPClientTest::testConstructor()
+void GestionnaireTest::testConstructor()
 {
-	boost::asio::io_service io_service;
     // Construction de l'instance de classe a tester
-    HTTPClient *httpclient = new HTTPClient(io_service);
-    CPPUNIT_ASSERT(httpclient != NULL);
-    io_service.run();
-    delete httpclient;
+    Gestionnaire *gestionnaire = new Gestionnaire();
+    CPPUNIT_ASSERT(gestionnaire != NULL);
+    delete gestionnaire;
 }
 
-void HTTPClientTest::testUnitaire1()
+void GestionnaireTest::testUnitaire1()
 {
     // Construction de l'instance de classe a tester
-	boost::asio::io_service io_service;
-    HTTPClient *httpclient = new HTTPClient(io_service);
-    CPPUNIT_ASSERT(httpclient != NULL);
-
-    httpclient->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=presence&device_sn=toto&value=21&time=04/12/13");
-    io_service.run();
-
+    Gestionnaire *gestionnaire = new Gestionnaire();
+    CPPUNIT_ASSERT(gestionnaire != NULL);
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
-    delete httpclient;
+    delete gestionnaire;
 }
 
 // the main method
@@ -101,7 +92,7 @@ int main(int argc, char* argv[])
     compileroutputter.write();
 
     // for hudson
-    std::ofstream file( "HTTPClient-cppunit-report.xml" );
+    std::ofstream file( "Gestionnaire-cppunit-report.xml" );
     CPPUNIT_NS::XmlOutputter xmloutputter(&collectedresults, file);
     xmloutputter.write();
     file.close();

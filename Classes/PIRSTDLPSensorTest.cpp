@@ -1,8 +1,8 @@
 
 /*
- *  Copyright (C) 2013  plegal  (plegal@appert44.org)
- *  @file         HTTPClientTest.cpp
- *  Classe        HTTPClient
+ *  Copyright (C) 2013  kevin  (kevin@appert44.org)
+ *  @file         PIRSTDLPSensorTest.cpp
+ *  Classe        PIRSTDLPSensor
  *  @note         Implementation de la classe en charge des tests unitaires
  */
 
@@ -20,10 +20,10 @@
 // Includes qt
 
 // Includes application
-#include "HTTPClientTest.h"
+#include "PIRSTDLPSensorTest.h"
 
 // Registers the fixture into the 'registry'
-CPPUNIT_TEST_SUITE_REGISTRATION(HTTPClientTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(PIRSTDLPSensorTest);
 
 // Exemple d'assertions possibles
 // # CPPUNIT_ASSERT(condition)
@@ -39,42 +39,38 @@ CPPUNIT_TEST_SUITE_REGISTRATION(HTTPClientTest);
 // # CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)
 
 // setUp() to initialize the variables you will use for test
-void HTTPClientTest::setUp()
+void PIRSTDLPSensorTest::setUp()
 {
 }
 
 // tearDown() to release any permanent resources you allocated in setUp()
-void HTTPClientTest::tearDown()
+void PIRSTDLPSensorTest::tearDown()
 {
 }
-
-
 
 // Suite des tests unitaires
 
-void HTTPClientTest::testConstructor()
+void PIRSTDLPSensorTest::testConstructor()
 {
-	boost::asio::io_service io_service;
     // Construction de l'instance de classe a tester
-    HTTPClient *httpclient = new HTTPClient(io_service);
-    CPPUNIT_ASSERT(httpclient != NULL);
-    io_service.run();
-    delete httpclient;
+    PIRSTDLPSensor *pirstdlpsensor = new PIRSTDLPSensor();
+    CPPUNIT_ASSERT(pirstdlpsensor != NULL);
+    delete pirstdlpsensor;
 }
 
-void HTTPClientTest::testUnitaire1()
+void PIRSTDLPSensorTest::testUnitaire1()
 {
     // Construction de l'instance de classe a tester
-	boost::asio::io_service io_service;
-    HTTPClient *httpclient = new HTTPClient(io_service);
-    CPPUNIT_ASSERT(httpclient != NULL);
-
-    httpclient->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=presence&device_sn=toto&value=21&time=04/12/13");
-    io_service.run();
-
+    PIRSTDLPSensor *pirstdlpsensor = new PIRSTDLPSensor();
+    CPPUNIT_ASSERT(pirstdlpsensor != NULL);
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
-    delete httpclient;
+    pirstdlpsensor->Open();
+   while (1) {
+	   pirstdlpsensor->Presencerate();
+   }
+
+    delete pirstdlpsensor;
 }
 
 // the main method
@@ -101,7 +97,7 @@ int main(int argc, char* argv[])
     compileroutputter.write();
 
     // for hudson
-    std::ofstream file( "HTTPClient-cppunit-report.xml" );
+    std::ofstream file( "PIRSTDLPSensor-cppunit-report.xml" );
     CPPUNIT_NS::XmlOutputter xmloutputter(&collectedresults, file);
     xmloutputter.write();
     file.close();

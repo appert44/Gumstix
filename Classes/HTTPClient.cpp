@@ -1,5 +1,5 @@
 /**
- *  Copyright (C) 2013  plegal  (plegal@appert44.org)
+ *  Copyright (C) 2013  kmoreau  (kmoreaul@appert44.org)
  *  @file         HTTPClient.cpp
  *  @brief        Client HTTP
  *  @version      0.1
@@ -69,21 +69,21 @@ void HTTPClient::POST(const std::string& server,
 	// server will close the socket after transmitting the response. This will
 	// allow us to treat all data up until the EOF as the content.
 	std::ostream request_stream(&request_);
-	request_stream << "POST " << path << " HTTP/1.0\r\n";
+	request_stream << "POST " << path << " HTTP/1.1\r\n";
 	request_stream << "Host: " << server << "\r\n";
 	request_stream << "Accept: */*\r\n";
 	request_stream << "Connection: close\r\n";
-	ostringstream dataLen;
-	dataLen << data.length();
+	ostringstream dataLen; // creation string to stend
+	dataLen << data.length();  // length of datas
 	request_stream << "Content-Length:" << dataLen.str() << "\r\n\r\n";
 	request_stream << data << "\r\n";
 	// Start an asynchronous resolve to translate the server and service names
 	// into a list of endpoints.
-	tcp::resolver::query query(server, port);
+	tcp::resolver::query query(server, port); // DNS
 	resolver_.async_resolve(query,
 			boost::bind(&HTTPClient::HandleResolve, this,
 					boost::asio::placeholders::error,
-					boost::asio::placeholders::iterator));
+					boost::asio::placeholders::iterator));   // DNS
 
 }
 
