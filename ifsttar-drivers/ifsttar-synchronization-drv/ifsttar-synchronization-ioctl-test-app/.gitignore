@@ -1,0 +1,3 @@
+*.o
+*~
+ifsttar-synchronization-ioctl-test-app

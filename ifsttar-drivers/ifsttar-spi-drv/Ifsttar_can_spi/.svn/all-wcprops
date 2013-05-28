@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/Ifsttar_can_spi
+END
+ifsttar_can_spi.h
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/Ifsttar_can_spi/ifsttar_can_spi.h
+END
+ifsttar_can_spi.c
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/Ifsttar_can_spi/ifsttar_can_spi.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/Ifsttar_can_spi/Makefile
+END

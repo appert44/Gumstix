@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-synchronization-drv/ifsttar-synchronization-ioctl-test-app
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-synchronization-drv/ifsttar-synchronization-ioctl-test-app/Makefile
+END
+ifsttar-synchronization-ioctl-test-app.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-synchronization-drv/ifsttar-synchronization-ioctl-test-app/ifsttar-synchronization-ioctl-test-app.cpp
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-synchronization-drv/ifsttar-synchronization-ioctl-test-app/.gitignore
+END

@@ -1,0 +1,34 @@
+10
+
+dir
+53
+http://172.31.10.8:8080/SuiviConsoEnergie/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv
+http://172.31.10.8:8080/SuiviConsoEnergie
+
+
+
+2013-01-25T15:04:50.534794Z
+53
+plegal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+f8583d0f-27f0-4ec7-a8df-9e94b5767a1c
+
+Ifsttar_can_spi
+dir
+
+omap2_mcspi
+dir
+

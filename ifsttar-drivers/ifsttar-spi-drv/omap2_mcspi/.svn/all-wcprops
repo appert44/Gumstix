@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/omap2_mcspi
+END
+omap2_mcspi.c
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/omap2_mcspi/omap2_mcspi.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-spi-drv/omap2_mcspi/Makefile
+END

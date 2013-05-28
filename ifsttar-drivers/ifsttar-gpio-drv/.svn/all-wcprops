@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv
+END
+ifsttar-gpio-drv.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv/ifsttar-gpio-drv.h
+END
+Module.symvers
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv/Module.symvers
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv/Makefile
+END
+ifsttar-gpio-drv.mod.c
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv/ifsttar-gpio-drv.mod.c
+END
+ifsttar-gpio-drv.c
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv/ifsttar-gpio-drv.c
+END
+modules.order
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/SuiviConsoEnergie/!svn/ver/53/ressources/ifsttar/exemple_gpio/ifsttar-drivers/ifsttar-gpio-drv/modules.order
+END
