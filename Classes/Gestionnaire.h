@@ -32,8 +32,11 @@
 // Includes application
 #include "LM74.h"
 #include "HTTPClient.h"
+<<<<<<< HEAD
 #include "PIRSTDLPSensor.h"
 
+=======
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 // Constantes
 // ex :
 // const int kDaysInAWeek = 7;
@@ -76,12 +79,18 @@ public :
 
     // Methodes publiques de la classe
     // ex : ReturnType NomMethode(Type);
+<<<<<<< HEAD
 double AcquireTemp();
 void SendTemp(string str_temp, string time);
 string DoubleToString(double temperature);
 string GetTime();
 double AcquirePresence();
 void SendPresence(string presence, string time);
+=======
+double Acquire();
+void Send(string str_temp);
+string DoubleToString(double temperature);
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
     // Pour les associations :
     // Methodes publiques setter/getter (mutateurs/accesseurs) des attributs prives
     // ex :
@@ -99,7 +108,10 @@ private :
     // Type nomAttribut_;
 LM74 *lm74_;
 HTTPClient *httpclient_;
+<<<<<<< HEAD
 PIRSTDLPSensor *pirstdlpsensor_;
+=======
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 string device_path_;
 //boost::asio::io_service& io_service;
 /*tcp::resolver resolver_;

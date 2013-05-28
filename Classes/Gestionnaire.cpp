@@ -24,9 +24,16 @@
 // Includes system C++
 // A décommenter si besoin cout, cin, ...
 #include <iostream>
+<<<<<<< HEAD
 #include <ctime>
 using namespace std;
 
+=======
+using namespace std;
+
+
+
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 // Includes qt
 
 // Includes application
@@ -38,7 +45,10 @@ using namespace std;
 Gestionnaire::Gestionnaire(boost::asio::io_service& io_service) {
 	lm74_ = new LM74("/dev/spike");
 	httpclient_ = new HTTPClient(io_service);
+<<<<<<< HEAD
 	pirstdlpsensor_ = new PIRSTDLPSensor();
+=======
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 
 }
 
@@ -46,7 +56,10 @@ Gestionnaire::Gestionnaire(boost::asio::io_service& io_service) {
  * Destructeur
  */
 Gestionnaire::~Gestionnaire() {
+<<<<<<< HEAD
 	delete pirstdlpsensor_;
+=======
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 	delete httpclient_;
 	delete lm74_;
 }
@@ -62,19 +75,29 @@ Gestionnaire::~Gestionnaire() {
 // ReturnType Gestionnaire::NomMethode(Type parametre)
 // {
 // }
+<<<<<<< HEAD
 double Gestionnaire::AcquireTemp() {
+=======
+double Gestionnaire::Acquire() {
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 	lm74_->Open();
 	double temperature = lm74_->Read();
 	cout << "temperature=" << temperature << endl;
 	return temperature;
 	lm74_->Close();
 }
+<<<<<<< HEAD
 void Gestionnaire::SendTemp(string str_temp, string time) {
 
 	httpclient_->POST("enigmatic-cliffs-5746.herokuapp.com", "80",
 			"/alfheimweb/measure/",
 			"sensor_type=temp&device_sn=0008&time=" + time + "&value="
 					+ str_temp);
+=======
+void Gestionnaire::Send(string str_temp) {
+
+	httpclient_->POST("enigmatic-cliffs-5746.herokuapp.com", "80","/alfheimweb/measure/","sensor_type=temp&device_sn=0001&time=04/19/13&value=" + str_temp);
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 	cout << "requete envoyee" << endl;
 }
 string Gestionnaire::DoubleToString(double temperature) {
@@ -86,6 +109,7 @@ string Gestionnaire::DoubleToString(double temperature) {
 	}
 	return str_temp;
 }
+<<<<<<< HEAD
 
 string Gestionnaire::GetTime() {
 	char buffer[256];  //creation buffer reception heure
@@ -111,6 +135,8 @@ void Gestionnaire::SendPresence(string presence, string time)
 	cout << "requete envoyee" << endl;
 
 }
+=======
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 // Methodes protegeesh
 
 // Methodes privees
@@ -122,6 +148,7 @@ void Gestionnaire::SendPresence(string presence, string time)
 int main(int argc, char *argv[]) {
 
 	boost::asio::io_service io_service;
+<<<<<<< HEAD
     boost::asio::io_service io_service2;
 	// Construction de l'instance de la  classe principale
 	cout << "Construction de l'instance de la classe principale Gestionnaire"
@@ -154,3 +181,17 @@ int main(int argc, char *argv[]) {
 delete gestionnaire ;
 delete gestionnaire2 ;
 }
+=======
+	// Construction de l'instance de la  classe principale
+	cout << "Construction de l'instance de la classe principale Gestionnaire"
+			<< endl;
+	Gestionnaire *gestionnaire = new Gestionnaire(io_service);
+	double temperature = gestionnaire->Acquire();
+	string str_temp = gestionnaire->DoubleToString(temperature);
+	gestionnaire->Send(str_temp);
+	io_service.run();
+
+	return 0;
+}
+
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf

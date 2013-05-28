@@ -77,7 +77,11 @@ int LM74::Open(void)
 		cout << "open error : " << fd_ << endl;
 		return -ERR_SPIKE_DRIVER_OPEN;
 	}
+<<<<<<< HEAD
 	//cout << "fd = " << fd_ << endl;
+=======
+	cout << "fd = " << fd_ << endl;
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
 	return retval;
 }
 

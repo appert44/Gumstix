@@ -44,8 +44,8 @@ WARNING_ON = -Wall
 CFLAG=${CFLAGS} $(DEBUG_ON) $(WARNING_ON)
 CXXFLAG=${CXXFLAGS} $(DEBUG_ON) $(WARNING_ON)
 
-# Options de recherches des includes
-INCLUDES = -I $(HOME)/overo/usr/include 
+# Options de recher(OBJDIR)ches des includes
+INCLUDES = -I overo/usr/include 
 
 # Définitions à la compilation (ex -DDEBUG = #define DEBUG)
 DEFINES = 
@@ -69,24 +69,27 @@ HDR = $(wildcard $(SRCDIR)/*.h)
 # Classes auxiliaires
 # ex                    = $(OBJDIR)/MyAuxClass.o
 AUX_OBJECTS		=		$(OBJDIR)/HTTPClient.o \
+						$(OBJDIR)/LM74.o \
 
 # Classes de tests unitaires
 # ex                    = $(OBJDIR)/MyAuxClassTest.o 
-UNITTEST_OBJECTS	=	$(OBJDIR)/HTTPClientTest.o
+UNITTEST_OBJECTS	=	$(OBJDIR)/HTTPClientTest.o \
+						$(OBJDIR)/LM74Test.o \
 
 # Classe principale de release
 # ex                    = $(OBJDIR)/MyMainClass.o
-RELEASE_OBJECTS		= 
+RELEASE_OBJECTS		= 	$(OBJDIR)/Gestionnaire.o \
 
 # Objet à générer
 OBJECTS		= 	$(AUX_OBJECTS) $(UNITTEST_OBJECTS) $(RELEASE_OBJECTS)
 
 # On place ici les exécutables à générer (testsunitaires et release)
 # ex            = 	$(UNITTESTBIN)/MyAuxClassTest
-UNITTEST	=	$(UNITTESTBIN)/HTTPClientTest
+UNITTEST	=	$(UNITTESTBIN)/HTTPClientTest \
+				$(UNITTESTBIN)/LM74Test \
 
 # ex            = 	$(RELEASEBIN)/MyMainClass
-RELEASE		=	
+RELEASE		=	$(RELEASEBIN)/Gestionnaire \
 
 # On rajoute ici ce qui doit être généré
 all : $(BUILDDIR) $(OBJECTS) $(RELEASE) $(UNITTEST)
@@ -126,10 +129,13 @@ $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp
 # Production des tests unitaires
 $(UNITTESTBIN)/HTTPClientTest :	$(AUX_OBJECTS) $(OBJDIR)/HTTPClientTest.o
 	$(CC) $^  $(LIBSTEST) -o $@
+$(UNITTESTBIN)/LM74Test :	$(AUX_OBJECTS) $(OBJDIR)/LM74Test.o
+	$(CC) $^  $(LIBSTEST) -o $@
 
 # Production de la release
-$(RELEASEBIN)/HTTPClient : $(AUX_OBJECTS) $(OBJDIR)/HTTPClient.o
+$(RELEASEBIN)/Gestionnaire : $(AUX_OBJECTS) $(OBJDIR)/Gestionnaire.o
 	$(CC) $^ $(LIBS) -o $@
+
 
 $(INSTALLDIR) :
 	mkdir -p $@

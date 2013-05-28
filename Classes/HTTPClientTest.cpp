@@ -68,7 +68,10 @@ void HTTPClientTest::testUnitaire1()
 	boost::asio::io_service io_service;
     HTTPClient *httpclient = new HTTPClient(io_service);
     CPPUNIT_ASSERT(httpclient != NULL);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6ad2973104ac9e543faf601dd99f13e6436ed8cf
     httpclient->POST("enigmatic-cliffs-5746.herokuapp.com","80","/alfheimweb/measure/","sensor_type=presence&device_sn=toto&value=21&time=04/12/13");
     io_service.run();
 
