@@ -66,9 +66,9 @@ void PIRSTDLPSensorTest::testUnitaire1()
     // Test unitaire d'une methode publique de la classe
     // Utilisation des macros CPPUNIT_ASSERT, CPPUNIT_ASSERT_EQUAL, etc.
     pirstdlpsensor->Open();
-   while (1) {
+   //while (1) {
 	   pirstdlpsensor->Presencerate();
-   }
+   //}
 
     delete pirstdlpsensor;
 }

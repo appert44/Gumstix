@@ -90,15 +90,15 @@ int PIRSTDLPSensor::Read(void) {
 }
 
 double PIRSTDLPSensor::Presencerate() {
-	int mesures[300];
-	cout <<" Obtention de la presence en cours " << endl ;
-	for (int i = 0; i < 301; i++) {
+	int mesures[30];
+	cout <<" Obtention de la presence sur 30s en cours " << endl ;
+	for (int i = 0; i < 31; i++) {
 		int value = cgpio_->Read();
 		mesures[i] = value;
 		sleep(1);
 	}
 	double presence = 0;
-	for (int j = 0; j < 301; j++) {
+	for (int j = 0; j < 31; j++) {
 		if (mesures[j] == 0)
 		{
 
@@ -108,7 +108,7 @@ double PIRSTDLPSensor::Presencerate() {
 }
 
 
-	presence = (presence * 100)/300;
+	presence = (presence * 100)/30;
 			cout << " taux de presence : " << presence << "%" << endl ;
 			return presence ;
 }
