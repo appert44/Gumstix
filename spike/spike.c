@@ -138,10 +138,10 @@ static ssize_t spike_read(struct file *filp, char __user *buff, size_t count, lo
 			spike_ctl.rx_buff[0], spike_ctl.rx_buff[1]
 			);*/
 		spike_dev.user_buff=spike_ctl.rx_buff;
-	/*	printk("Status: %d\nRX: 0x%2x 0x%2x\n",
+		printk("Status: %d\nRX: 0x%2x 0x%2x\n",
 							spike_ctl.msg.status,
 							spike_ctl.rx_buff[0], spike_ctl.rx_buff[1]
-							);*/
+							);
 	}
 		
 	len = strlen(spike_dev.user_buff);
@@ -150,7 +150,7 @@ static ssize_t spike_read(struct file *filp, char __user *buff, size_t count, lo
 		count = len;
 
 	if (copy_to_user(buff, spike_dev.user_buff, count))  {
-		//printk(KERN_ALERT "spike_read(): copy_to_user() failed\n");
+		printk(KERN_ALERT "spike_read(): copy_to_user() failed\n");
 		status = -EFAULT;
 	} else {
 		*offp += count;
