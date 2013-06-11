@@ -115,15 +115,15 @@ static ssize_t spike_read(struct file *filp, char __user *buff, size_t count, lo
 
 	if (!buff) 
 		return -EFAULT;
-	//printk (KERN_ALERT "read1");
+	printk (KERN_ALERT "read1");
 
 	if (*offp > 0) 
 		return 0;
-	//printk (KERN_ALERT "read2");
+	printk (KERN_ALERT "read2");
 
 	if (down_interruptible(&spike_dev.fop_sem)) 
 		return -ERESTARTSYS;
-	//printk (KERN_ALERT "read3");
+	printk (KERN_ALERT "read3");
 
 	status = spike_do_one_message();
 
